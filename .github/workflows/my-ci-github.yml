@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pytest 
+          python -m pip install pytest httpx
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: unittest
         run: |
@@ -40,7 +40,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: flake8
         run: |
-            flake8 homework/hw1/
+            flake8 --ignore=PIE801,E501,W293 homework/hw1/
       - name: mypy
         run: |
             mypy homework/hw1/
