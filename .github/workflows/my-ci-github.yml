@@ -1,0 +1,52 @@
+name: CI/CD Pipeline
+
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest 
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: unittest
+        run: |
+          pytest homework/hw1/
+  lintres:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install flake8 flake8-pie flake8-bugbear mypy black isort
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: flake8
+        run: |
+            flake8 homework/hw1/
+      - name: mypy
+        run: |
+            mypy homework/hw1/
+      - name: black
+        run: |
+           black --diff --check homework/hw1/
+      - name: isort
+        run: |
+           isort --check-only homework/hw1/
