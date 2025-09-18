@@ -1,4 +1,3 @@
-
 from pydantic import BaseModel
 
 
@@ -7,6 +6,7 @@ class BaseRecipes(BaseModel):
     dish_name: str
     number_of_views: int
     cooking_time: int
+
 
 class RecipesIn(BaseModel):
     ...
@@ -25,16 +25,16 @@ class BaseDescriptions(BaseModel):
     ingredients: str
     text_description: str
 
+
 class DescriptionsIn(BaseDescriptions):
     dish_name: str
     cooking_time: int
     ingredients: str
     text_description: str
 
+
 class DescriptionsOut(BaseDescriptions):
     id: int
 
     class Config:
         orm_mode = True
-
-
