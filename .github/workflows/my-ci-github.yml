@@ -24,7 +24,7 @@ jobs:
       - name: unittest
         run: |
           pytest homework/hw1/
-  lintres:
+  lintres-flake8:
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -41,12 +41,26 @@ jobs:
       - name: flake8
         run: |
             flake8 --ignore=PIE801,E501,W293 homework/hw1/
+  lintres-mypy-isort-black:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install mypy black isort
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: mypy
         run: |
             mypy homework/hw1/
-      - name: black
-        run: |
-           black --diff --check homework/hw1/
       - name: isort
         run: |
            isort --check-only homework/hw1/
+      - name: black
+        run: |
+           black --diff --check homework/hw1/

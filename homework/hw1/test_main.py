@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 
+
 client = TestClient(app)
 
 recipe_data = {"dish_name": "Блинчики",
@@ -10,17 +11,16 @@ recipe_data = {"dish_name": "Блинчики",
                }
 
 
-
 def test_create_recipe():
     response = client.post("/descriptions_recipe/", json=recipe_data)
     assert response.status_code == 200
     id = response.json()["id"]
     assert response.json() == {"id": id,
-                                "dish_name": "Блинчики",
-                                "cooking_time": 35,
-                                "ingredients": "Мука блинная - 3 стакана, вода - 1 стакан.",
-                                "text_description": "Все смешать сахар и соль по вкусу."
-                                }
+                               "dish_name": "Блинчики",
+                               "cooking_time": 35,
+                               "ingredients": "Мука блинная - 3 стакана, вода - 1 стакан.",
+                               "text_description": "Все смешать сахар и соль по вкусу."
+                               }
 
 
 def test_get_id_recipe():
