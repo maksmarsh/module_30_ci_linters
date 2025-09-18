@@ -4,10 +4,10 @@ from main import app
 client = TestClient(app)
 
 recipe_data = {"dish_name": "Блинчики",
-              "cooking_time": 35,
-              "ingredients": "Мука блинная - 3 стакана, вода - 1 стакан.",
-              "text_description": "Все смешать сахар и соль по вкусу."
-              }
+               "cooking_time": 35,
+               "ingredients": "Мука блинная - 3 стакана, вода - 1 стакан.",
+               "text_description": "Все смешать сахар и соль по вкусу."
+               }
 
 
 
