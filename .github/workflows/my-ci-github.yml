@@ -23,7 +23,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: unittest
         run: |
-          pytest homework/hw1/
+          pytest -v homework/hw1/
   lintres-flake8:
     runs-on: ubuntu-latest
     steps:
@@ -58,9 +58,9 @@ jobs:
       - name: mypy
         run: |
             mypy homework/hw1/
+      - name: black
+        run: |
+          black --diff --check homework/hw1/
       - name: isort
         run: |
            isort --check-only homework/hw1/
-      - name: black
-        run: |
-           black --diff --check homework/hw1/
