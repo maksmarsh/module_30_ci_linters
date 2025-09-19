@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 
 from database import Base
 
+
 class Descriptions(Base):
     __tablename__ = 'descriptions'
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)

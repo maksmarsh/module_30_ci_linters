@@ -36,11 +36,11 @@ async def recipes() -> List[models.Recipes]:
     res = await session.execute(select(models.Recipes).
                                 order_by(models.Recipes.number_of_views.desc(), models.Recipes.cooking_time))
     # recipes = res.scalars().all()
-    return res.scalars().all()
+    return list(res.scalars().all())
 
 
 @app.get('/descriptions_recipe/{recipe_id}', response_model=schemas.DescriptionsOut)
-async def recipes_id(recipe_id) -> [models.Descriptions, models.Recipes]:
+async def recipes_id(recipe_id) -> models.Descriptions:
     res = await session.execute(select(models.Descriptions).filter_by(id=recipe_id))
     recipe = res.scalars().first()
     await session.close()

@@ -11,6 +11,7 @@ class BaseRecipes(BaseModel):
 class RecipesIn(BaseModel):
     ...
 
+
 class RecipesOut(BaseRecipes):
     id: int
 
