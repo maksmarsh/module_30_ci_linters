@@ -27,7 +27,7 @@ async def descriptions(description: schemas.DescriptionsIn) -> models.Descriptio
     new_recipe = models.Recipes(
         id=new_description.id,
         dish_name=new_description.dish_name,
-        cooking_time=new_description.cooking_time
+        cooking_time=new_description.cooking_time,
     )
     async with session.begin():
         session.add(new_recipe)
@@ -42,14 +42,13 @@ async def recipes() -> List[models.Recipes]:
             models.Recipes.number_of_views.desc(), models.Recipes.cooking_time
         )
     )
-    # recipes = res.scalars().all()
     return list(res.scalars().all())
 
 
 @app.get('/descriptions_recipe/{recipe_id}', response_model=schemas.DescriptionsOut)
 async def recipes_id(recipe_id) -> models.Descriptions:
-    res = await session.execute(select(models.Descriptions).filter_by(id=recipe_id))
-    recipe = res.scalars().first()
+    # res = await session.execute(select(models.Descriptions).filter_by(id=recipe_id))
+    recipe = await session.execute(select(models.Descriptions).filter_by(id=recipe_id)).scalars().first()
     await session.close()
     if recipe:
         await session.commit()

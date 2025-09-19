@@ -8,7 +8,7 @@ recipe_data = {
     "dish_name": "Блинчики",
     "cooking_time": 35,
     "ingredients": "Мука блинная - 3 стакана, вода - 1 стакан.",
-    "text_description": "Все смешать сахар и соль по вкусу."
+    "text_description": "Все смешать сахар и соль по вкусу.",
 }
 
 
@@ -21,7 +21,7 @@ def test_create_recipe():
         "dish_name": "Блинчики",
         "cooking_time": 35,
         "ingredients": "Мука блинная - 3 стакана, вода - 1 стакан.",
-        "text_description": "Все смешать сахар и соль по вкусу."
+        "text_description": "Все смешать сахар и соль по вкусу.",
     }
 
 
@@ -33,7 +33,7 @@ def test_get_id_recipe():
         "dish_name": "Блинчики",
         "cooking_time": 35,
         "ingredients": "Мука блинная - 3 стакана, вода - 1 стакан.",
-        "text_description": "Все смешать сахар и соль по вкусу."
+        "text_description": "Все смешать сахар и соль по вкусу.",
     }
 
 

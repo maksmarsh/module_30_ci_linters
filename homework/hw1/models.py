@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer, ForeignKey
 from sqlalchemy.orm import relationship
+
 # from traitlets.utils import descriptions
 
 from database import Base
@@ -20,4 +21,6 @@ class Recipes(Base):
     dish_name = Column(String, nullable=False)
     number_of_views = Column(Integer, default=0)
     cooking_time = Column(Integer, nullable=False)
-    descriptions = relationship("Descriptions", cascade="all, delete-orphan", single_parent=True)
+    descriptions = relationship(
+        "Descriptions", cascade="all, delete-orphan", single_parent=True
+    )

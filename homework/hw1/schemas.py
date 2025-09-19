@@ -8,8 +8,7 @@ class BaseRecipes(BaseModel):
     cooking_time: int
 
 
-class RecipesIn(BaseModel):
-    ...
+class RecipesIn(BaseModel): ...
 
 
 class RecipesOut(BaseRecipes):
