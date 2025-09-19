@@ -6,7 +6,7 @@ from database import Base
 
 
 class Descriptions(Base):
-    __tablename__ = 'descriptions'
+    __tablename__ = "descriptions"
     id = Column(Integer, primary_key=True, autoincrement=True, index=True)
     dish_name = Column(String, index=True)
     cooking_time = Column(Integer, nullable=False)
@@ -15,7 +15,7 @@ class Descriptions(Base):
 
 
 class Recipes(Base):
-    __tablename__ = 'recipes'
+    __tablename__ = "recipes"
     id = Column(Integer, ForeignKey("descriptions.id"), primary_key=True)
     dish_name = Column(String, nullable=False)
     number_of_views = Column(Integer, default=0)

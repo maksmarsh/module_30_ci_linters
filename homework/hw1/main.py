@@ -14,17 +14,21 @@ async def lifespan(application: FastAPI):
         yield
         await session.close()
         await engine.dispose()
+
+
 app = FastAPI()
 
 
 @app.post('/descriptions_recipe/', response_model=schemas.DescriptionsOut)
 async def descriptions(description: schemas.DescriptionsIn) -> models.Descriptions:
-    new_description = models.Descriptions(**description.dict())
+    new_description = models.Descriptions(**description.model_dump())
     async with session.begin():
         session.add(new_description)
-    new_recipe = models.Recipes(id=new_description.id,
-                                dish_name=new_description.dish_name,
-                                cooking_time=new_description.cooking_time)
+    new_recipe = models.Recipes(
+        id=new_description.id,
+        dish_name=new_description.dish_name,
+        cooking_time=new_description.cooking_time
+    )
     async with session.begin():
         session.add(new_recipe)
 
@@ -33,8 +37,11 @@ async def descriptions(description: schemas.DescriptionsIn) -> models.Descriptio
 
 @app.get('/recipes/', response_model=List[schemas.RecipesOut])
 async def recipes() -> List[models.Recipes]:
-    res = await session.execute(select(models.Recipes).
-                                order_by(models.Recipes.number_of_views.desc(), models.Recipes.cooking_time))
+    res = await session.execute(
+        select(models.Recipes).order_by(
+            models.Recipes.number_of_views.desc(), models.Recipes.cooking_time
+        )
+    )
     # recipes = res.scalars().all()
     return list(res.scalars().all())
 
@@ -49,6 +56,7 @@ async def recipes_id(recipe_id) -> models.Descriptions:
         return recipe
     else:
         raise HTTPException(status_code=404, detail="Recipe not found")
+
 
 """
 запуск: fastapi dev main.py
