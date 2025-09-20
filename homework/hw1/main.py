@@ -21,7 +21,7 @@ app = FastAPI()
 
 @app.post('/descriptions_recipe/', response_model=schemas.DescriptionsOut)
 async def descriptions(description: schemas.DescriptionsIn) -> models.Descriptions:
-    new_description = models.Descriptions(**description.model_dump())
+    new_description = models.Descriptions(**description.dict())
     async with session.begin():
         session.add(new_description)
     new_recipe = models.Recipes(
