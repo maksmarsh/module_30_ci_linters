@@ -47,7 +47,11 @@ async def recipes() -> List[models.Recipes]:
 
 @app.get('/descriptions_recipe/{recipe_id}', response_model=schemas.DescriptionsOut)
 async def recipes_id(recipe_id) -> models.Descriptions:
-    recipe = (await session.execute(select(models.Descriptions).filter_by(id=recipe_id))).scalars().first()
+    recipe = (
+        (await session.execute(select(models.Descriptions).filter_by(id=recipe_id)))
+        .scalars()
+        .first()
+    )
     await session.close()
     if recipe:
         await session.commit()
