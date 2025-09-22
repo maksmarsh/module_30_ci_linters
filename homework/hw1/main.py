@@ -38,7 +38,7 @@ async def descriptions(description: schemas.DescriptionsIn) -> Descriptions:
 async def recipes() -> List[Recipes]:
     res = await session.execute(
         select(Recipes).order_by(
-        Recipes.number_of_views.desc(), Recipes.cooking_time
+            Recipes.number_of_views.desc(), Recipes.cooking_time
         )
     )
     return list(res.scalars().all())
