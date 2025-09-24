@@ -37,9 +37,7 @@ async def descriptions(description: DescriptionsIn) -> Descriptions:
 @app.get('/recipes/', response_model=List[RecipesOut])
 async def recipes() -> List[Recipes]:
     res = await session.execute(
-        select(Recipes).order_by(
-            Recipes.number_of_views.desc(), Recipes.cooking_time
-        )
+        select(Recipes).order_by(Recipes.number_of_views.desc(), Recipes.cooking_time)
     )
     return list(res.scalars().all())
 
@@ -47,9 +45,8 @@ async def recipes() -> List[Recipes]:
 @app.get('/descriptions_recipe/{recipe_id}', response_model=DescriptionsOut)
 async def recipes_id(recipe_id) -> Descriptions:
     recipe = (
-        (await session.execute(select(Descriptions).filter_by(id=recipe_id)))
-        .scalars()
-        .first()
+        (await session.execute(select(Descriptions).filter_by(id=recipe_id))
+         ).scalars().first()
     )
     await session.close()
     if recipe:
