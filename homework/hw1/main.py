@@ -1,9 +1,9 @@
 from typing import List
 from fastapi import FastAPI, HTTPException
 from sqlalchemy.future import select
-from .models import Descriptions, Recipes, Base
-from .schemas import DescriptionsOut, DescriptionsIn, RecipesOut
-from .database import engine, session
+from models import Descriptions, Recipes, Base
+from schemas import DescriptionsOut, DescriptionsIn, RecipesOut
+from database import engine, session
 from contextlib import asynccontextmanager
 
 
