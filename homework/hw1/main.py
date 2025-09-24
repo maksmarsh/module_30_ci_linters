@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 from sqlalchemy.future import select
 from models import Descriptions, Recipes, Base
 import schemas
-from database import engine, session
+from .database import engine, session
 from contextlib import asynccontextmanager
 
 
