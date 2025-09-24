@@ -19,7 +19,7 @@ async def lifespan(application: FastAPI):
 app = FastAPI()
 
 
-@app.post('/descriptions_recipe/', response_model=DescriptionsOut)
+@app.post("/descriptions_recipe/", response_model=DescriptionsOut)
 async def descriptions(description: DescriptionsIn) -> Descriptions:
     new_description = Descriptions(**description.dict())
     async with session.begin():
@@ -34,7 +34,7 @@ async def descriptions(description: DescriptionsIn) -> Descriptions:
     return new_description
 
 
-@app.get('/recipes/', response_model=List[RecipesOut])
+@app.get("/recipes/", response_model=List[RecipesOut])
 async def recipes() -> List[Recipes]:
     res = await session.execute(
         select(Recipes).order_by(Recipes.number_of_views.desc(), Recipes.cooking_time)
@@ -42,7 +42,7 @@ async def recipes() -> List[Recipes]:
     return list(res.scalars().all())
 
 
-@app.get('/descriptions_recipe/{recipe_id}', response_model=DescriptionsOut)
+@app.get("/descriptions_recipe/{recipe_id}", response_model=DescriptionsOut)
 async def recipes_id(recipe_id) -> Descriptions:
     recipe = (
         (await session.execute(select(Descriptions).filter_by(id=recipe_id)))
