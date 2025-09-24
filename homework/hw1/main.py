@@ -1,8 +1,8 @@
 from typing import List
 from fastapi import FastAPI, HTTPException
 from sqlalchemy.future import select
-from models import Descriptions, Recipes, Base
-import schemas
+from .models import Descriptions, Recipes, Base
+from .schemas import DescriptionsOut, DescriptionsIn, RecipesOut
 from .database import engine, session
 from contextlib import asynccontextmanager
 
@@ -19,8 +19,8 @@ async def lifespan(application: FastAPI):
 app = FastAPI()
 
 
-@app.post('/descriptions_recipe/', response_model=schemas.DescriptionsOut)
-async def descriptions(description: schemas.DescriptionsIn) -> Descriptions:
+@app.post('/descriptions_recipe/', response_model=DescriptionsOut)
+async def descriptions(description: DescriptionsIn) -> Descriptions:
     new_description = Descriptions(**description.dict())
     async with session.begin():
         session.add(new_description)
@@ -34,7 +34,7 @@ async def descriptions(description: schemas.DescriptionsIn) -> Descriptions:
     return new_description
 
 
-@app.get('/recipes/', response_model=List[schemas.RecipesOut])
+@app.get('/recipes/', response_model=List[RecipesOut])
 async def recipes() -> List[Recipes]:
     res = await session.execute(
         select(Recipes).order_by(
@@ -44,7 +44,7 @@ async def recipes() -> List[Recipes]:
     return list(res.scalars().all())
 
 
-@app.get('/descriptions_recipe/{recipe_id}', response_model=schemas.DescriptionsOut)
+@app.get('/descriptions_recipe/{recipe_id}', response_model=DescriptionsOut)
 async def recipes_id(recipe_id) -> Descriptions:
     recipe = (
         (await session.execute(select(Descriptions).filter_by(id=recipe_id)))
